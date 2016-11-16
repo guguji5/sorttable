@@ -1,0 +1,383 @@
+<html ng-app='app'>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+        <script src="ConvertPinyin.js"></script>
+        <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/3.0.2/css/bootstrap.css">
+        <style>
+        	 thead .sorting,
+			 thead .sorting_asc,
+			 thead .sorting_desc {
+			  cursor: pointer;
+			  *cursor: hand;
+			}
+			 thead .sorting,
+			 thead .sorting_asc,
+			 thead .sorting_desc,
+			 thead .sorting_asc_disabled,
+			 thead .sorting_desc_disabled {
+			  background-repeat: no-repeat;
+			  background-position: center right;
+			}
+			 thead .sorting {
+			  background-image: url("image/sort_both.png");
+			}
+			 thead .sorting_asc {
+			  background-image: url("image/sort_asc.png");
+			}
+			 thead .sorting_desc {
+			  background-image: url("image/sort_desc.png");
+			}
+			table > thead:first-child > tr:first-child > th{
+				padding-right:15px;
+			}
+			table > tbody > tr > td{
+				padding:5px !important;
+			}
+			.hid{
+				display:none;
+			}
+		</style>
+    </head>
+    <body ng-controller='Controller'>
+    	<div class="container-fluid">
+    		<h3 class='text-center'>点击表头进行排序</h3>
+    		<table  sortTable class='table table-bordered table-responsive text-center'>
+	        	<thead>
+	        		<tr class="active">
+		        		<th>name</th>
+		                <th>orderTotalPrice</th>
+		                <th noSort>buildingName</th>
+		                <th noSort>salesArea</th>
+		                <th>orderUnitPrice</th>
+		                <th>orderStatus</th>
+		                <th>chargeSum</th>
+		                <th>unit</th>
+		                <th>orderNumber</th>
+		                <th>createDate</th>
+		                <th>saleFloorRoomName</th>
+	        		</tr>
+	        	</thead>
+	        	<tbody>
+	        		<tr ng-repeat='item in datalist1'>
+	        			<td><span class='hid'>{{item.customerName|ConvertPinyin}}</span>{{item.customerName}}</td>
+	                    <td>{{item.orderTotalPrice}}</td>
+	                    <td>{{item.buildingName}}</td>
+	                    <td>{{item.salesArea}}</td>
+	                    <td>{{item.orderUnitPrice}}</td>
+	                    <td>{{item.orderStatus}}</td>
+	                    <td>{{item.chargeSum}}</td>
+	                    <td>{{item.unit}}</td>
+	                    <td>{{item.orderNumber}}</td>
+	                    <td>{{item.createDate}}</td>
+	                    <td>{{item.saleFloorRoomName}}</td>
+	        		</tr>
+	        	</tbody>
+	        </table>
+    	</div>
+    </body>
+    <script>
+		var app=angular.module('app', []).controller('Controller',function($scope){
+			//假数据
+			$scope.datalist1=[
+                {
+                    "customerName":"苏丝",
+                    "orderTotalPrice":3035354,
+                    "buildingName":"住宅—高层HQ测试交房（勿动）",
+                    "salesArea":"100.0",
+                    "roomId":"d30765708a279847d78877186002e5e0",
+                    "orderUnitPrice":30353.54,
+                    "orderStatus":"50",
+                    "id":"64c9d6b66e09f64b2c68e056665a7573",
+                    "unit":"2单元",
+                    "chargeSum":0,
+                    "orderNumber":"1000000344",
+                    "createDate":"2016-11-14 00:00:00",
+                    "saleFloorRoomName":"1101",
+                    "propertyConsultant":"MKTTEST01"
+                },
+                {
+                    "customerName":"米粒",
+                    "orderTotalPrice":3035354,
+                    "buildingName":"住宅—高层HQ测试交房（勿动）",
+                    "salesArea":"100.0",
+                    "roomId":"afb8ba2a75abb748f77af8b7c5982bbb",
+                    "orderUnitPrice":30353.54,
+                    "orderStatus":"10",
+                    "id":"e51a33749e738944b2984c79b36b3e0d",
+                    "unit":"1单元",
+                    "chargeSum":7777,
+                    "orderNumber":"1000000343",
+                    "createDate":"2016-11-14 00:00:00",
+                    "saleFloorRoomName":"1102",
+                    "propertyConsultant":"MKTTEST01"
+                },
+                {
+                    "customerName":"布朗",
+                    "orderTotalPrice":2100000,
+                    "buildingName":"住宅—高层HQ测试1",
+                    "salesArea":"90.0",
+                    "roomId":"cfaf8acebe1e5b49a4bb6c7bbe4dcc22",
+                    "orderUnitPrice":23333.33,
+                    "orderStatus":"10",
+                    "id":"9e9918d8e9df0e4af7eb464ec45dc399",
+                    "unit":"1单元",
+                    "chargeSum":0,
+                    "orderNumber":"1000000342",
+                    "createDate":"2016-11-14 00:00:00",
+                    "saleFloorRoomName":"601",
+                    "propertyConsultant":"MKTTEST01"
+                },
+                {
+                    "customerName":"佘小彤",
+                    "orderTotalPrice":12010000,
+                    "buildingName":"住宅—高层测试1号楼",
+                    "salesArea":"121.0",
+                    "roomId":"e51c20499785894bfb98f569e58a7f8e",
+                    "orderUnitPrice":100083.33,
+                    "orderStatus":"20",
+                    "id":"74b8903d8f35b8449789d8587217d031",
+                    "unit":"1单元",
+                    "chargeSum":50000,
+                    "orderNumber":"1000000337",
+                    "createDate":"2016-11-11 00:00:00",
+                    "saleFloorRoomName":"401",
+                    "propertyConsultant":"MKTTEST01"
+                },
+                {
+                    "customerName":"强尼",
+                    "orderTotalPrice":3035354,
+                    "buildingName":"住宅—高层HQ测试交房（勿动）",
+                    "salesArea":"100.0",
+                    "roomId":"d49938d1816de8414a8876687f039a18",
+                    "orderUnitPrice":30353.54,
+                    "orderStatus":"10",
+                    "id":"5630d9ab74b4f749b77a5cb7c63eb460",
+                    "unit":"2单元",
+                    "chargeSum":7777,
+                    "orderNumber":"1000000336",
+                    "createDate":"2016-11-11 00:00:00",
+                    "saleFloorRoomName":"503",
+                    "propertyConsultant":"setup01"
+                },
+                {
+                    "customerName":"咕咕鸡",
+                    "orderTotalPrice":3035354,
+                    "buildingName":"住宅—高层HQ测试交房（勿动）",
+                    "salesArea":"100.0",
+                    "roomId":"22d5ab1547c72441aa487cc45dfa49ed",
+                    "orderUnitPrice":30353.54,
+                    "orderStatus":"50",
+                    "id":"0f5540eb7dcf174b2e7a012713f7f193",
+                    "unit":"1单元",
+                    "chargeSum":0,
+                    "orderNumber":"1000000335",
+                    "createDate":"2016-11-11 00:00:00",
+                    "saleFloorRoomName":"503",
+                    "propertyConsultant":"MKTTEST01"
+                },
+                {
+                    "customerName":"天下第一帅",
+                    "orderTotalPrice":3035354,
+                    "buildingName":"住宅—高层HQ测试交房（勿动）",
+                    "salesArea":"100.0",
+                    "roomId":"dd0892747688f7461c789c7789cfd952",
+                    "orderUnitPrice":30353.54,
+                    "orderStatus":"20",
+                    "id":"b38b35fddbe61d437fd8231d18c728e6",
+                    "unit":"3单元",
+                    "chargeSum":7777,
+                    "orderNumber":"1000000329",
+                    "createDate":"2016-11-10 00:00:00",
+                    "saleFloorRoomName":"501",
+                    "propertyConsultant":"setup01"
+                },
+                {
+                    "customerName":"r米粒",
+                    "orderTotalPrice":3035354,
+                    "buildingName":"住宅—高层HQ测试交房（勿动）",
+                    "salesArea":"110.0",
+                    "roomId":"93576e8d56071543a459280525f5fd56",
+                    "orderUnitPrice":30353.54,
+                    "orderStatus":"20",
+                    "id":"d7a7a91ec31e3c4ccec9064c66742e37",
+                    "unit":"2单元",
+                    "chargeSum":7777,
+                    "orderNumber":"1000000328",
+                    "createDate":"2016-11-10 00:00:00",
+                    "saleFloorRoomName":"601",
+                    "propertyConsultant":"MKTTEST01"
+                },
+                {
+                    "customerName":"n鲁米",
+                    "orderTotalPrice":3035354,
+                    "buildingName":"住宅—高层HQ测试交房（勿动）",
+                    "salesArea":"100.0",
+                    "roomId":"44fe88551561714c091becf17800a61c",
+                    "orderUnitPrice":30353.54,
+                    "orderStatus":"20",
+                    "id":"3a2b07a1b90c5b410ab8077b77a6fc2b",
+                    "unit":"3单元",
+                    "chargeSum":7777,
+                    "orderNumber":"1000000327",
+                    "createDate":"2016-11-10 00:00:00",
+                    "saleFloorRoomName":"502",
+                    "propertyConsultant":"setup01"
+                },
+                {
+                    "customerName":"卡森",
+                    "orderTotalPrice":3035354,
+                    "buildingName":"住宅—高层HQ测试交房（勿动）",
+                    "salesArea":"100.0",
+                    "roomId":"e21607c249d3044bee487b249d066f92",
+                    "orderUnitPrice":30353.54,
+                    "orderStatus":"20",
+                    "id":"79b784a0f5f46f481efa527f3597a434",
+                    "unit":"3单元",
+                    "chargeSum":7777,
+                    "orderNumber":"1000000326",
+                    "createDate":"2016-11-10 00:00:00",
+                    "saleFloorRoomName":"503",
+                    "propertyConsultant":"setup01"
+                }
+            ];
+
+		});
+		//将汉字转为拼音在进行排序
+		app.filter('ConvertPinyin',function(){
+				return function(input){
+					return ConvertPinyin(input);
+				}
+			})
+		app.directive('sorttable',function($timeout){
+			return{
+				restrict : 'EA',
+				replace : false,//要不要替换sorttable这个指令所在的标签
+				transclude : false,//
+				link : function(scope, element, attrs) {
+					
+					var wholeArr=new Array;
+					var noSort=[];
+					element.find('thead tr th').addClass('sorting')
+					$timeout(function() {
+						var length=element.find('tbody tr').length;
+						for(var i=0;i<angular.element('[noSort]').length;i++){
+		            		noSort.push(angular.element('[noSort]').eq(i).index());
+		            		angular.element('[noSort]').eq(i).removeClass('sorting')
+
+		            	}
+						for(var i=0;i<length;i++){
+							var arr=new Array();
+							for(var j=0;j<element.find('tbody tr').eq(i).find('td').length;j++){
+								arr.push(element.find('tbody tr').eq(i).find('td').eq(j).html())
+							}
+							wholeArr.push(arr);
+						}
+
+						 //console.log(wholeArr)
+						 var colspan=element.find('thead th').length;
+						 if(wholeArr.length==0){//如果没值则给出提示
+						 	element.find('tbody').append('<tr><td colspan='+colspan+'>没有查找到数据</td></tr>')
+						 }
+
+					}, 300);
+					
+					element.find('thead th').on('click',function(){	
+						var index=angular.element(this).index();
+						if(noSort.indexOf(index)<0){
+							var tempWholeArr=[];
+							var temp=wholeArr.map(function(item){
+								//因为取到的值都是string，数字也会变成string，而类似‘1015’‘605’这种比较会跟数字的比较不同
+								// 所以先判断下是不是数字，如果是由数字变成的string，那就转换回来
+								/****/
+								//因为项目中时间都是2016-11-09这种类型的，这种也直接返回string就好
+								if(item[index].indexOf('<') >-1 && item[index].indexOf('>')>-1){//判断是不是个dom
+									return angular.element(item[index]).html();
+								}else if(isNaN(parseInt(item[index])) || item[index].indexOf('-')>-1){
+									return item[index];
+								}else{
+									return parseInt(item[index]);
+								}
+								
+							})
+							//console.log('temp',temp)
+							element.find('.sorting_desc,.sorting_asc').removeClass('sorting_desc sorting_asc').addClass('sorting')//asc，desc小图标的复原
+							if(!sorttable.isAsc(temp)){
+								transfer=sorttable.quickSortAsc(temp.concat([]))//为啥这么写呢，因为快速排序影响了temp里边的值;
+								angular.element(this).removeClass('sorting sorting_desc').addClass('sorting_asc')
+							}else{
+								transfer=sorttable.quickSortDesc(temp.concat([]));
+								angular.element(this).removeClass('sorting sorting_asc').addClass('sorting_desc')
+							}
+							
+							//console.log('transfer',transfer)
+							angular.forEach(transfer,function(v,k){
+								tempWholeArr[k]=wholeArr[temp.indexOf(v)];
+								temp[temp.indexOf(v)]=null;//排序后将temp对应位置的值置空，以免值重复，反复插入
+							})
+							wholeArr=tempWholeArr;
+							//console.log(wholeArr)
+	                        sorttable.render(element,wholeArr)
+						}
+						
+					})
+				}
+			}
+		});
+		var sorttable={
+				// 用来判断是不是已经升序排序
+				isAsc:function(arr){
+					var isSort=true;
+					for(var i=0;i<arr.length-1;i++){
+						if(arr[i]>arr[i+1]){
+							isSort=false;
+						}
+					}
+					return isSort;
+				},
+				// 快速排序，升序排序
+				quickSortAsc:function(arr){
+					if (arr.length <= 1) { return arr; }
+				　　var pivotIndex = Math.floor(arr.length / 2);
+				　　var pivot = arr.splice(pivotIndex, 1)[0];
+				　　var left = [];
+				　　var right = [];
+
+				　　for (var i = 0; i < arr.length; i++){
+						
+				　　　　if (arr[i] < pivot) {
+				　　　　　　left.push(arr[i]);
+				　　　　} else {
+				　　　　　　right.push(arr[i]);
+				　　　　}
+				　　}
+				　　return this.quickSortAsc(left).concat([pivot], this.quickSortAsc(right));
+				},
+				// 快速排序，降序
+				quickSortDesc:function(arr){
+					if (arr.length <= 1) { return arr; }
+				　　var pivotIndex = Math.floor(arr.length / 2);
+				　　var pivot = arr.splice(pivotIndex, 1)[0];
+				　　var left = [];
+				　　var right = [];
+				　　for (var i = 0; i < arr.length; i++){
+				　　　　if (arr[i] > pivot) {
+				　　　　　　left.push(arr[i]);
+				　　　　} else {
+				　　　　　　right.push(arr[i]);
+				　　　　}
+				　　}
+				　　return this.quickSortDesc(left).concat([pivot], this.quickSortDesc(right));
+				},
+				// 渲染数据
+				render:function(ele,arr){
+					 angular.forEach(arr, function(value, key){
+		                angular.forEach(value, function(v, k){
+		                    ele.find('tbody tr').eq(key).find('td').eq(k).html(v)
+		                });
+		            });
+				}
+			}
+	</script>
+</html>
