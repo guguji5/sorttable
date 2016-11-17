@@ -10,4 +10,6 @@ if you doesn't to sort some  columns,please add 'noSort' attribute in the corres
 it alse offer a function to transfer Chinese word to Chinese letter,just like the first column 
 of  [the demo](http://codepen.io/guguji/pen/GNjEKr)(it is listed by Chinese letter)
 
+####example
+
 [Click here to see the online demo](http://codepen.io/guguji/pen/GNjEKr)
