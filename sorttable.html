@@ -43,8 +43,8 @@
     <body ng-controller='Controller'>
     	<div class="container-fluid">
     		<h3 class='text-center'>点击表头进行排序</h3>
-    		<button class='btn btn-default' ng-click='changeDate()'>换数据</button>
-    		<button class='btn btn-default' ng-click='resetDate()'>复原</button>
+    		<button class='btn btn-default pull-right' ng-click='changeDate()'>换数据</button>
+    		<button class='btn btn-default pull-right' ng-click='resetDate()'>复原</button>
     		<table sort-table='datalist1' class='table table-bordered table-responsive text-center'>
 	        	<thead>
 	        		<tr class="active">
@@ -328,7 +328,7 @@
                 }
             ];
 
-            $scope.datalist1=[];
+            $scope.datalist1=data1;
             $scope.changeDate=function(){
             	$scope.datalist1=data;
             }
@@ -374,7 +374,7 @@
 							wholeArr.push(arr);
 						}
 
-						 console.log(wholeArr)
+						 //console.log(wholeArr)
 						 var colspan=element.find('thead th').length;
 						 if(wholeArr.length==0){//如果没值则给出提示
 						 	element.find('tbody').append('<tr id="ls"><td colspan='+colspan+'>没有查找到数据</td></tr>')
