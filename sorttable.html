@@ -43,7 +43,9 @@
     <body ng-controller='Controller'>
     	<div class="container-fluid">
     		<h3 class='text-center'>点击表头进行排序</h3>
-    		<table  sortTable class='table table-bordered table-responsive text-center'>
+    		<button class='btn btn-default' ng-click='changeDate()'>换数据</button>
+    		<button class='btn btn-default' ng-click='resetDate()'>复原</button>
+    		<table sort-table='datalist1' class='table table-bordered table-responsive text-center'>
 	        	<thead>
 	        		<tr class="active">
 		        		<th>name</th>
@@ -80,7 +82,7 @@
     <script>
 		var app=angular.module('app', []).controller('Controller',function($scope){
 			//假数据
-			$scope.datalist1=[
+			var data1=[
                 {
                     "customerName":"苏丝",
                     "orderTotalPrice":3035354,
@@ -243,6 +245,96 @@
                 }
             ];
 
+            var data=[
+                {
+                    "customerName":"苏丝",
+                    "orderTotalPrice":3035354,
+                    "buildingName":"住宅—高层HQ测试交房（勿动）",
+                    "salesArea":"100.0",
+                    "roomId":"d30765708a279847d78877186002e5e0",
+                    "orderUnitPrice":30353.54,
+                    "orderStatus":"50",
+                    "id":"64c9d6b66e09f64b2c68e056665a7573",
+                    "unit":"2单元",
+                    "chargeSum":0,
+                    "orderNumber":"1000000344",
+                    "createDate":"2016-11-14 00:00:00",
+                    "saleFloorRoomName":"1101",
+                    "propertyConsultant":"MKTTEST01"
+                },
+                {
+                    "customerName":"米粒",
+                    "orderTotalPrice":3035354,
+                    "buildingName":"住宅—高层HQ测试交房（勿动）",
+                    "salesArea":"100.0",
+                    "roomId":"afb8ba2a75abb748f77af8b7c5982bbb",
+                    "orderUnitPrice":30353.54,
+                    "orderStatus":"10",
+                    "id":"e51a33749e738944b2984c79b36b3e0d",
+                    "unit":"1单元",
+                    "chargeSum":7777,
+                    "orderNumber":"1000000343",
+                    "createDate":"2016-11-14 00:00:00",
+                    "saleFloorRoomName":"1102",
+                    "propertyConsultant":"MKTTEST01"
+                },
+                {
+                    "customerName":"布朗",
+                    "orderTotalPrice":2100000,
+                    "buildingName":"住宅—高层HQ测试1",
+                    "salesArea":"90.0",
+                    "roomId":"cfaf8acebe1e5b49a4bb6c7bbe4dcc22",
+                    "orderUnitPrice":23333.33,
+                    "orderStatus":"10",
+                    "id":"9e9918d8e9df0e4af7eb464ec45dc399",
+                    "unit":"1单元",
+                    "chargeSum":0,
+                    "orderNumber":"1000000342",
+                    "createDate":"2016-11-14 00:00:00",
+                    "saleFloorRoomName":"601",
+                    "propertyConsultant":"MKTTEST01"
+                },
+                {
+                    "customerName":"佘小彤",
+                    "orderTotalPrice":12010000,
+                    "buildingName":"住宅—高层测试1号楼",
+                    "salesArea":"121.0",
+                    "roomId":"e51c20499785894bfb98f569e58a7f8e",
+                    "orderUnitPrice":100083.33,
+                    "orderStatus":"20",
+                    "id":"74b8903d8f35b8449789d8587217d031",
+                    "unit":"1单元",
+                    "chargeSum":50000,
+                    "orderNumber":"1000000337",
+                    "createDate":"2016-11-11 00:00:00",
+                    "saleFloorRoomName":"401",
+                    "propertyConsultant":"MKTTEST01"
+                },
+                {
+                    "customerName":"强尼",
+                    "orderTotalPrice":3035354,
+                    "buildingName":"住宅—高层HQ测试交房（勿动）",
+                    "salesArea":"100.0",
+                    "roomId":"d49938d1816de8414a8876687f039a18",
+                    "orderUnitPrice":30353.54,
+                    "orderStatus":"10",
+                    "id":"5630d9ab74b4f749b77a5cb7c63eb460",
+                    "unit":"2单元",
+                    "chargeSum":7777,
+                    "orderNumber":"1000000336",
+                    "createDate":"2016-11-11 00:00:00",
+                    "saleFloorRoomName":"503",
+                    "propertyConsultant":"setup01"
+                }
+            ];
+
+            $scope.datalist1=[];
+            $scope.changeDate=function(){
+            	$scope.datalist1=data;
+            }
+            $scope.resetDate=function(){
+            	$scope.datalist1=data1;
+            }
 		});
 		//将汉字转为拼音在进行排序
 		app.filter('ConvertPinyin',function(){
@@ -250,17 +342,24 @@
 					return ConvertPinyin(input);
 				}
 			})
-		app.directive('sorttable',function($timeout){
+		app.directive('sortTable',function($timeout){
 			return{
 				restrict : 'EA',
 				replace : false,//要不要替换sorttable这个指令所在的标签
 				transclude : false,//
+				scope:{
+					data:'=sortTable'//换个名字为data，以免两个混了
+				},
 				link : function(scope, element, attrs) {
-					
-					var wholeArr=new Array;
 					var noSort=[];
+					var wholeArr=new Array();
+
+					scope.$watch('data',function(newV,oldV,scope){
+					element.find('#ls').remove();
 					element.find('thead tr th').addClass('sorting')
-					$timeout(function() {
+					 $timeout(function() {
+					 	wholeArr.splice(0,wholeArr.length)//初始化函数
+					 	
 						var length=element.find('tbody tr').length;
 						for(var i=0;i<angular.element('[noSort]').length;i++){
 		            		noSort.push(angular.element('[noSort]').eq(i).index());
@@ -275,14 +374,16 @@
 							wholeArr.push(arr);
 						}
 
-						 //console.log(wholeArr)
+						 console.log(wholeArr)
 						 var colspan=element.find('thead th').length;
 						 if(wholeArr.length==0){//如果没值则给出提示
-						 	element.find('tbody').append('<tr><td colspan='+colspan+'>没有查找到数据</td></tr>')
+						 	element.find('tbody').append('<tr id="ls"><td colspan='+colspan+'>没有查找到数据</td></tr>')
 						 }
 
-					}, 300);
+					 }, 300);
+					},true)
 					
+					// 给每个表头绑定点击事件
 					element.find('thead th').on('click',function(){	
 						var index=angular.element(this).index();
 						if(noSort.indexOf(index)<0){
