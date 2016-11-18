@@ -1,6 +1,6 @@
 # sortTable ---the directive to make your table sortable
 this is a light directive to make your table sortable.
-the only thing you need to do is to add the 'sortTable' directive in the 'table' label,
+the only thing you need to do is to add the 'sort-table' directive in the 'table' label,and assgin it the source data that listed in your table to listen in the real time.
 if you doesn't to sort some  columns,please add 'noSort' attribute in the corresponding 'th' labels.
 ####dependencies
 
